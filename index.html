@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Filter airports</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/utils.css" />
+    <link rel="stylesheet" href="./css/checkbox.css" />
+    <link rel="stylesheet" href="./css/table.css" />
+    <script src="./js/index.js" defer type="module"></script>
+  </head>
+  <body>
+    <main>
+      <header class="flex align-items-baseline justify-content-between px-1 pt-1">
+        <h1>Filter <span>airports</span></h1>
+        <button class="flex">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-grid-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z"
+            />
+          </svg>
+        </button>
+      </header>
+      <section class="filter-grid px-1">
+        <div>
+          <h3>Type</h3>
+          <div class="flex flex-wrap align-items-center type-filters-container">
+            <span class="flex align-items-center">
+              <input
+                type="checkbox"
+                value="small"
+                name="type"
+                id="small-airport"
+                class="cursor-pointer"
+              />
+              <label
+                for="small-airport"
+                class="mr-point-5 small-font cursor-pointer"
+                >Small</label
+              >
+            </span>
+            <span class="flex align-items-center">
+              <input
+                type="checkbox"
+                value="medium"
+                name="type"
+                id="medium-airport"
+                class="cursor-pointer"
+              />
+              <label
+                for="medium-airport"
+                class="mr-point-5 small-font cursor-pointer"
+                >Medium</label
+              >
+            </span>
+            <span class="flex align-items-center">
+              <input
+                type="checkbox"
+                value="large"
+                name="type"
+                id="large-airport"
+                class="cursor-pointer"
+              />
+              <label
+                for="large-airport"
+                class="mr-point-5 small-font cursor-pointer"
+                >Large</label
+              >
+            </span>
+            <span class="flex align-items-center">
+              <input
+                type="checkbox"
+                value="heliport"
+                name="type"
+                id="heliport-airport"
+                class="cursor-pointer"
+              />
+              <label
+                for="heliport-airport"
+                class="mr-point-5 small-font cursor-pointer"
+                >Heliport</label
+              >
+            </span>
+            <span class="flex align-items-center">
+              <input
+                type="checkbox"
+                value="closed"
+                name="type"
+                id="closed-airport"
+                class="cursor-pointer"
+              />
+              <label
+                for="closed-airport"
+                class="mr-point-5 small-font cursor-pointer"
+                >Closed</label
+              >
+            </span>
+            <span class="flex align-items-center">
+              <input
+                type="checkbox"
+                value="favorites"
+                name="type"
+                id="favorites-airport"
+                class="cursor-pointer"
+              />
+              <label
+                for="favorites-airport"
+                class="mr-point-5 small-font cursor-pointer"
+                >In your favorites</label
+              >
+            </span>
+          </div>
+        </div>
+        <div>
+          <h3>Filter by search</h3>
+          <input type="text" id="filter-input" class="w-100" />
+        </div>
+      </section>
+      <section class="table-container">
+        <table id="airport-table" class="w-100">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>ICAO</th>
+              <th>IATA</th>
+              <th>Elev.</th>
+              <th>Lat.</th>
+              <th>Long.</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody class="px-1">
+            <tr id="loader-row">
+              <td rowspan="4" colspan="7">
+                <div class="loader"></div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="w-100">
+              <td colspan="7">
+                <div class="flex align-items-center justify-content-between">
+                  <!-- left arrow start -->
+                  <button id="prev-page-btn" class="cursor-pointer flex" disabled>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-arrow-left"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+                      />
+                    </svg>
+                  </button>
+                  <!-- left arrow end -->
+                  <div>
+                    <span class="small-font"
+                      >Showing <strong id="page-number">0-0</strong> of
+                      <strong id="total-rows">0</strong> results</span
+                    >
+                    <select id="page-size" class="ml-point-5 cursor-pointer" title="Change page size">
+                      <option selected value="4">4</option>
+                      <option value="8">8</option>
+                    </select>
+                  </div>
+                  <!-- right arrow start -->
+                  <button id="next-page-btn" class="cursor-pointer flex" disabled>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-arrow-right"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+                      />
+                    </svg>
+                  </button>
+                  <!-- right arrow end -->
+                </div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </section>
+    </main>
+  </body>
+</html>
