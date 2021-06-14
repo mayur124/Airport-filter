@@ -106,11 +106,11 @@ function _getSessionStorageData() {
 
 function _setSessionStorageDataToElements() {
     const { typeFilters, filterText, currentPage, pageSize } = _getSessionStorageData();
-    if (typeFilters?.length > 0) {
+    if (typeFilters && typeFilters.length > 0) {
         selectedTypeFilters = typeFilters;
         _checkSelectedTypes();
     }
-    if (filterText?.trim().length > 0) {
+    if (filterText && filterText.trim().length > 0) {
         searchFilterInput.value = filterText;
     }
     if (+currentPage) {

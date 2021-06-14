@@ -52,7 +52,7 @@ class TableEventHandler {
      * @param {any[]} selectedTypes 
      * @param {string} searchString 
      */
-     filterAirports(selectedTypes, searchString) {
+    filterAirports(selectedTypes, searchString) {
         this.filteredAirportList = this.airportList.filter(airport => this._getFilterCondition(selectedTypes, searchString, airport));
     }
     /**
@@ -61,27 +61,23 @@ class TableEventHandler {
      * @param {any} airport 
      */
     _getFilterCondition(selectedTypes, searchString, airport) {
+        if (selectedTypes.length === 0) {
+            return this._getFilterBySearchStrCondition(searchString, airport);
+        } else {
+            return selectedTypes.includes(airport.type) && this._getFilterBySearchStrCondition(searchString, airport);
+        }
+    }
+    _getFilterBySearchStrCondition(searchString, airport) {
         const latitude = getLatitude(airport.latitude);
         const longitude = getLongitude(airport.longitude);
-        if (selectedTypes.length === 0) {
-            return [
-                airport.name,
-                airport.icao,
-                airport.iata,
-                `${airport.elevation} ft.`,
-                latitude,
-                longitude
-            ].some(val => val?.toLowerCase().indexOf(searchString.toLowerCase()) > -1)
-        } else {
-            return selectedTypes.includes(airport.type) && [
-                airport.name,
-                airport.icao,
-                airport.iata,
-                `${airport.elevation} ft.`,
-                latitude,
-                longitude
-            ].some(val => val?.toLowerCase().indexOf(searchString.toLowerCase()) > -1)
-        }
+        return [
+            airport.name,
+            airport.icao,
+            airport.iata,
+            `${airport.elevation} ft.`,
+            latitude,
+            longitude
+        ].some(val => val != undefined && val.toLowerCase().indexOf(searchString.toLowerCase()) > -1)
     }
     getPaginationSlice() {
         const startIndex = (this.currentPage - 1) * this.pageSize;
