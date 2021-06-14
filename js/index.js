@@ -27,13 +27,21 @@ const totalRowsString = document.getElementById('total-rows');
 initFetchData();
 
 async function getCachedResponse() {
-    cache = await caches.open(CACHE_KEY);
-    return (await caches.match(airportCacheRequest))?.json();
+    await caches
+        .open(CACHE_KEY)
+        .then(async cache => {
+            const response = await cache.match(airportCacheRequest);
+            if (response) {
+                return response.json();
+            } else {
+                return;
+            }
+        });
 }
 
 async function fetchAirports() {
     const airportPromise = await fetch('/data/airports.json');
-    return await airportPromise?.json();
+    return await airportPromise.json() || [];
 }
 
 async function initFetchData() {
