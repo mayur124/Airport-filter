@@ -11,7 +11,7 @@ let selectedTypeFilters = [];
  * @type {Cache}
  */
 let cache;
-const airportCacheRequest = new Request('/airports.json');
+const airportCacheRequest = new Request('/data/airports.json');
 const CACHE_KEY = 'airports-cache';
 
 const typeFilters = document.querySelectorAll("input[type='checkbox'][name='type']");
@@ -32,7 +32,7 @@ async function getCachedResponse() {
 }
 
 async function fetchAirports() {
-    const airportPromise = await fetch('/airports.json');
+    const airportPromise = await fetch('/data/airports.json');
     return await airportPromise?.json();
 }
 
