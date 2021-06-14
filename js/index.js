@@ -36,6 +36,10 @@ async function getCachedResponse() {
             } else {
                 return;
             }
+        })
+        .catch(error => {
+            console.log('error while getting cachedResponse > ', error);
+            return;
         });
 }
 
