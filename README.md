@@ -2,11 +2,7 @@
 
 Pure HTML, CSS, JavaScript application.
 
-**Steps to run**
-1. Open VSCode
-2. Install Live Server extension
-3. Go to index.html
-4. Right click and click on "Open with Live Server".
+**Live demo here 👉 https://airport-filter.netlify.app/**
 
 **Features**
 
